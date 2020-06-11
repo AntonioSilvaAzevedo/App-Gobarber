@@ -13,6 +13,7 @@
 
 
 
+
 ![](.github/appgb.png)
 
 
@@ -26,6 +27,13 @@
 ##### :arrow_forward: syled-components
 ##### :arrow_forward: react-navigation
 ##### :arrow_forward: react-navigation/stack
+##### :arrow_forward: unform/core and mobile
+##### :arrow_forward: react-native-gesture-handler
+##### :arrow_forward: react-native-iphone-x-helper
+##### :arrow_forward: react-native-reanimated":
+##### :arrow_forward: react-native-safe-area-context
+##### :arrow_forward: react-native-screens
+##### :arrow_forward: react-native-vector-icons
 
 # :on: to run this project run the command
 ```bash
