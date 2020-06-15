@@ -34,6 +34,7 @@
 ##### :arrow_forward: react-native-safe-area-context
 ##### :arrow_forward: react-native-screens
 ##### :arrow_forward: react-native-vector-icons
+##### :arrow_forward: @react-native-community/async-storage
 
 # :on: to run this project run the command
 ```bash
