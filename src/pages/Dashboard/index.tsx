@@ -81,8 +81,7 @@ const Dashboard: React.FC = () => {
           >
             <ProviderAvatar
               source={{
-                uri:
-                  'https://avatars3.githubusercontent.com/u/60106864?s=460&u=92a19a4a2f7f4214a0a052c6966ac558e8ee4b88&v=4',
+                uri: provider.avatar_url,
               }}
             />
 

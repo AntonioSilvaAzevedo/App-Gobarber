@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 import Icon from 'react-native-vector-icons/Feather';
@@ -29,6 +29,8 @@ import {
   SectionContent,
   Hour,
   HourText,
+  CreateAppointmetButton,
+  CreateAppointmentButtonText,
 } from './styles';
 
 interface RouteParams {
@@ -49,7 +51,7 @@ interface AvailabilityItem {
 const CreateAppointment: React.FC = () => {
   const { user } = useAuth();
   const route = useRoute();
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
 
   const routeParams = route.params as RouteParams;
 
@@ -111,6 +113,27 @@ const CreateAppointment: React.FC = () => {
     setSelectedHour(hour);
   }, []);
 
+  const handleCreatedAppointment = useCallback(async () => {
+    try {
+      const date = new Date(selectedDate);
+
+      date.setHours(selectedHour);
+      date.setMinutes(0);
+
+      await api.post('appointments', {
+        provider_id: selectedProvider,
+        date,
+      });
+
+      navigate('AppointmentCreated', { date: date.getTime() });
+    } catch (err) {
+      Alert.alert(
+        'Erro ao criar agendamento',
+        'Ocorreu um erro ao criar o agendamento, tente novamente',
+      );
+    }
+  }, [navigate, selectedDate, selectedHour, selectedProvider]);
+
   const morningAvailability = useMemo(() => {
     return availability
       .filter(({ hour }) => hour < 12)
@@ -161,8 +184,7 @@ const CreateAppointment: React.FC = () => {
               >
                 <ProviderAvatar
                   source={{
-                    uri:
-                      'https://avatars3.githubusercontent.com/u/60106864?s=460&u=92a19a4a2f7f4214a0a052c6966ac558e8ee4b88&v=4',
+                    uri: provider.avatar_url,
                   }}
                 />
                 <ProviderName selected={provider.id === selectedProvider}>
@@ -237,6 +259,10 @@ const CreateAppointment: React.FC = () => {
             </SectionContent>
           </Section>
         </Schedule>
+
+        <CreateAppointmetButton onPress={handleCreatedAppointment}>
+          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+        </CreateAppointmetButton>
       </Content>
     </Container>
   );
